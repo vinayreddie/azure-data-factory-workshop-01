@@ -1,0 +1,23 @@
+{
+	"name": "DS_BIN_ARCHIVE_HR",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "1. HRCaseStudy"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "HR Case Study.csv",
+				"folderPath": "archive",
+				"fileSystem": "hr-case-study"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

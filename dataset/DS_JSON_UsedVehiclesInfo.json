@@ -1,0 +1,78 @@
+{
+	"name": "DS_JSON_UsedVehiclesInfo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "3. UsedVehiclesInfo"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "raw",
+				"fileSystem": "used-vehicles-info"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"link": {
+					"type": "string"
+				},
+				"title": {
+					"type": "string"
+				},
+				"mileage": {
+					"type": "string"
+				},
+				"price": {
+					"type": "string"
+				},
+				"priceDrop": {
+					"type": "string"
+				},
+				"stockType": {
+					"type": "string"
+				},
+				"carImages": {
+					"type": "string"
+				},
+				"dealerName": {
+					"type": "string"
+				},
+				"vehicleBadging": {
+					"type": "string"
+				},
+				"maker": {
+					"type": "string"
+				},
+				"model": {
+					"type": "string"
+				},
+				"modelYear": {
+					"type": "string"
+				},
+				"msrp": {
+					"type": "string"
+				},
+				"trip": {
+					"type": "string"
+				},
+				"vehicleFeature": {
+					"type": "string"
+				},
+				"uniqId": {
+					"type": "string"
+				},
+				"scrapedAt": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

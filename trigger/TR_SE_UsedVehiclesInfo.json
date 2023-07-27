@@ -1,0 +1,25 @@
+{
+	"name": "TR_SE_UsedVehiclesInfo",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_Load_UsedVehiclesInfo",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/used-vehicles-info/blobs/raw/",
+			"blobPathEndsWith": ".json",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/bc2daafb-9b21-4406-8b8f-e654873bca3c/resourceGroups/tk-rg-01/providers/Microsoft.Storage/storageAccounts/adls01tk",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

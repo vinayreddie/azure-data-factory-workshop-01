@@ -1,0 +1,30 @@
+{
+	"name": "DS_BIN_UsedVehiclesInfo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"DirectoryName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "3. UsedVehiclesInfo"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@dataset().DirectoryName",
+					"type": "Expression"
+				},
+				"fileSystem": "used-vehicles-info"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

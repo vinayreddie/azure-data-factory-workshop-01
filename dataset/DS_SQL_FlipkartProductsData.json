@@ -1,0 +1,37 @@
+{
+	"name": "DS_SQL_FlipkartProductsData",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AZSQLDB",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"DatabaseName": "FlipkartProductsDataDB"
+			}
+		},
+		"parameters": {
+			"SchemaName": {
+				"type": "string"
+			},
+			"TableName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "4. FlipkartProductsData"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().SchemaName",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

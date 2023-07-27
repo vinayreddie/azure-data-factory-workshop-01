@@ -1,0 +1,64 @@
+{
+	"name": "PL_Restore_RestaurantOrders",
+	"properties": {
+		"activities": [
+			{
+				"name": "Move Archive Files To Raw",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false,
+							"deleteFilesAfterCompletion": true
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_BIN_All_RestaurantOrders",
+						"type": "DatasetReference",
+						"parameters": {
+							"DirectoryName": "archive"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_BIN_All_RestaurantOrders",
+						"type": "DatasetReference",
+						"parameters": {
+							"DirectoryName": "raw"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "2. RestaurantOrders"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-07-25T11:24:23Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

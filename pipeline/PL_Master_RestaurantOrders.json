@@ -1,0 +1,151 @@
+{
+	"name": "PL_Master_RestaurantOrders",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute PL_Load_RestaurantOrders1",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_Load_RestaurantOrders1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute PL_Load_RestaurantOrders2",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute PL_Load_RestaurantOrders1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_Load_RestaurantOrders2",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Load RestaurantOrders",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "Execute PL_Load_RestaurantOrders2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "LS_AZSQLDB",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"DatabaseName": "RestaurantOrdersDB"
+					}
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "TRUNCATE TABLE dw.RestaurantOrders;\r\n\r\nINSERT INTO dw.RestaurantOrders\r\nSELECT * FROM (\r\n    SELECT * FROM dw.RestaurantOrders1\r\n    UNION ALL\r\n    SELECT * FROM dw.RestaurantOrders2\r\n) AS X;"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			},
+			{
+				"name": "Execute PL_Load_RestaurantProductsPrice1",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_Load_RestaurantProductsPrice1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute PL_Load_RestaurantProductsPrice2",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute PL_Load_RestaurantProductsPrice1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_Load_RestaurantProductsPrice2",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Load RestaurantProductsPrice",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "Execute PL_Load_RestaurantProductsPrice2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "LS_AZSQLDB",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"DatabaseName": "RestaurantOrdersDB"
+					}
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "TRUNCATE TABLE dw.RestaurantProductsPrice;\r\n\r\nINSERT INTO dw.RestaurantProductsPrice\r\nSELECT * FROM (\r\n    SELECT * FROM dw.RestaurantProductsPrice1\r\n    UNION ALL\r\n    SELECT * FROM dw.RestaurantProductsPrice2\r\n) AS X;"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			}
+		],
+		"folder": {
+			"name": "2. RestaurantOrders"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-07-25T11:24:24Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
